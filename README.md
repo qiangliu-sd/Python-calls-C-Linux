@@ -21,4 +21,4 @@ Notes:
 - solarLunar.cpp is actually used in [convert between Gregorian and Chinese lunar dates](../../../solar-lunar-date-tool)
 
 ### Python calls C-dll functions
-To call C functions in Python, you must pass the correct argument types (i.e., buffered byte string, c_double, ctypes Structure, or ctypes array) and specify the return type. Read the documentation directly in [c4Python.py](../../../Python-calls-C-dll) for what most of you need to know.
+To call C functions in Python, you must pass the correct argument types (i.e., buffered byte string, c_double, ctypes Structure, or ctypes array) and specify the return type. Read the documentation directly in [c4Python.py](../../../Python-calls-C-dll/tree/main/c4PyTest) for what most of you need to know.
