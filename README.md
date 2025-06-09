@@ -16,7 +16,7 @@ Complex makefile (and Makefile.main) are utilzied to create a .so file in two st
 Notes:
 - Compiler option [-fPIC] is necessary for shared lib
 - Compiler option [-fdeclspec] is needed for calling C functions directly in Python
-- The pre-processor [\_\_WSL\_C\_\_] takes care of Linux or Windows (see **solarLunar.cpp**)
+- The pre-processor [\_\_WSL\_C\_\_] takes care of Linux or Windows (see [solarLunar.cpp](solarLunar.cpp))
 - The linker option [-shared] works with [-fPIC] together
 - solarLunar.cpp is actually used in [convert between Gregorian and Chinese lunar dates](../../../solar-lunar-date-tool)
 
