@@ -30,16 +30,20 @@ To create the libSolarLunar.so for Python, type:
 > make -f make.mini dlib
 ```
 DYNA_LIB = lib/libSolarLunar.so
-OBJS = _obj_DEBUG/utility/date/DateHelper.o _obj_DEBUG/utility/date/LunarDate.o _obj_DEBUG/vcprjs/qlcdll/lunarPrj/solarLunar.o
+OBJS = _obj_DEBUG/utility/date/DateHelper.o \
+    _obj_DEBUG/utility/date/LunarDate.o \
+    _obj_DEBUG/vcprjs/qlcdll/lunarPrj/solarLunar.o
 
 COMPILE.cxx = clang++ -I../utility  -c
 
+# rule for making shared object
 dlib:$(DYNA_LIB)
 
 $(DYNA_LIB):$(OBJS)		
 	-mkdir -p lib
 	clang++ -shared  $(OBJS)     -o $@
-	
+
+# rule for making object from C++ sources
 objs:$(OBJS)
 	
 _obj_DEBUG/%.o:../%.cpp
