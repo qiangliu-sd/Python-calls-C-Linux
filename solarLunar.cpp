@@ -12,9 +12,10 @@
     //#define IMPORT __declspec(dllimport)
 #endif
 
-// Python: create_string_buffer(100) for fetching string from C via [date_out]
-extern "C" EXPORT int lunarFetch(const char* sun_date, char* date_out);
-extern "C" EXPORT int solarFetch(const char* lun_date, char* date_out);
+// Python: create_string_buffer(100) for fetching string from C via
+//	 [lun_yyyymmdd_o] or [sun_yyyymmdd_o]
+extern "C" EXPORT int lunarFetch(const char* sun_yyyymmdd, char* lun_yyyymmdd_o);
+extern "C" EXPORT int solarFetch(const char* lun_yyyymmdd, char* sun_yyyymmdd_o);
 
 
 static int string2CharStar(const string_view & str, char* str_copy) {
@@ -25,21 +26,21 @@ static int string2CharStar(const string_view & str, char* str_copy) {
 }
 
 
-// client has to 
-//		make sure input [sun_date] is a valid date as "yyyymmdd"
-//		check whether: "LEAP" is in [date_out]
-int lunarFetch(const char* sun_date, char * date_out) {
-	LunarDate _l_date(sun_date);
-	string _dt_str=(_l_date.showStr());
-	if (_l_date.isLeapMon()) _dt_str += "LEAP";
-	return string2CharStar(_dt_str, date_out);
+// client has to:
+//		make sure input [sun_yyyymmdd] is a valid date as "yyyymmdd"
+//		check whether "LEAP" is in [lun_yyyymmdd_o]
+int lunarFetch(const char* sun_yyyymmdd, char * lun_yyyymmdd_o) {
+	LunarDate _l_date(sun_yyyymmdd);
+	string _l_str = _l_date.showStr();
+	if (_l_date.isLeapMon()) _l_str += "LEAP";
+	return string2CharStar(_l_str, lun_yyyymmdd_o);
 }
 
-// client has to 
-//		make sure input [lun_date] is in "yyyymmdd" format
-//		check whether returned date is "19000101" (i.e., input [lun_date] is BAD)
-int solarFetch(const char* lun_date, char* date_out) {
-	SolarDate _s_date(lun_date);
-	return string2CharStar(_s_date.datesPowerS(), date_out);
+// client has to:
+//		make sure input [lun_yyyymmdd] is in "yyyymmdd" format
+//		check whether returned date is "19000101" (i.e., [lun_yyyymmdd] is BAD)
+int solarFetch(const char* lun_yyyymmdd, char* sun_yyyymmdd_o) {
+	SolarDate _s_date(lun_yyyymmdd);
+	return string2CharStar(_s_date.datesPowerS(), sun_yyyymmdd_o);
 }
 
