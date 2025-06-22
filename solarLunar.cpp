@@ -38,9 +38,11 @@ int lunarFetch(const char* sol_yyyymmdd, char * yyyymmdd_o) {
 
 // client has to:
 //		make sure input [lun_yyyymmdd] is in "yyyymmdd" format
-//		check whether returned date is "BAD_INPUT" (i.e., [lun_yyyymmdd] is BAD)
+//		check whether return is -1 [_BAD_INPUT] (i.e., [lun_yyyymmdd] is BAD)
 int solarFetch(const char* lun_yyyymmdd, char* yyyymmdd_o) {
+	const int _BAD_INPUT = -1;
 	SolarDate _s_date(lun_yyyymmdd);
-	return string2CharStar(_s_date.datesPowerS(), yyyymmdd_o);
+	auto _sd_str = _s_date.datesPowerS();
+	return (_sd_str.has_value()) ? string2CharStar(*_sd_str, yyyymmdd_o) : _BAD_INPUT;
 }
 
