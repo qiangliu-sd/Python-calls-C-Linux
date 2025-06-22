@@ -13,9 +13,9 @@
 #endif
 
 // Python: create_string_buffer(100) for fetching string from C via
-//	 [lun_yyyymmdd_o] or [sun_yyyymmdd_o]
-extern "C" EXPORT int lunarFetch(const char* sun_yyyymmdd, char* lun_yyyymmdd_o);
-extern "C" EXPORT int solarFetch(const char* lun_yyyymmdd, char* sun_yyyymmdd_o);
+//	 [yyyymmdd_o]
+extern "C" EXPORT int lunarFetch(const char* sol_yyyymmdd, char* yyyymmdd_o);
+extern "C" EXPORT int solarFetch(const char* lun_yyyymmdd, char* yyyymmdd_o);
 
 
 static int string2CharStar(const string_view & str, char* str_copy) {
@@ -27,20 +27,20 @@ static int string2CharStar(const string_view & str, char* str_copy) {
 
 
 // client has to:
-//		make sure input [sun_yyyymmdd] is a valid date as "yyyymmdd"
-//		check whether "LEAP" is in [lun_yyyymmdd_o]
-int lunarFetch(const char* sun_yyyymmdd, char * lun_yyyymmdd_o) {
-	LunarDate _l_date(sun_yyyymmdd);
-	string _l_str = _l_date.showStr();
-	if (_l_date.isLeapMon()) _l_str += "LEAP";
-	return string2CharStar(_l_str, lun_yyyymmdd_o);
+//		make sure input [sol_yyyymmdd] is a valid date as "yyyymmdd"
+//		check whether "LEAP" is in [yyyymmdd_o]
+int lunarFetch(const char* sol_yyyymmdd, char * yyyymmdd_o) {
+	LunarDate _l_date(sol_yyyymmdd);
+	string _ld_str = _l_date.showStr();
+	if (_l_date.isLeapMon()) _ld_str += "LEAP";
+	return string2CharStar(_ld_str, yyyymmdd_o);
 }
 
 // client has to:
 //		make sure input [lun_yyyymmdd] is in "yyyymmdd" format
 //		check whether returned date is "19000101" (i.e., [lun_yyyymmdd] is BAD)
-int solarFetch(const char* lun_yyyymmdd, char* sun_yyyymmdd_o) {
+int solarFetch(const char* lun_yyyymmdd, char* yyyymmdd_o) {
 	SolarDate _s_date(lun_yyyymmdd);
-	return string2CharStar(_s_date.datesPowerS(), sun_yyyymmdd_o);
+	return string2CharStar(_s_date.datesPowerS(), yyyymmdd_o);
 }
 
