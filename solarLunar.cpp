@@ -1,7 +1,7 @@
 
 //#include <ostream>
 #include "date/LunarDate.h"
-#include <string_view>
+#include <string_view>		// C++17
 //using namespace std;
 
 #if defined(__WSL_C__)	//  -D__WSL_C__
