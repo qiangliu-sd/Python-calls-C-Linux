@@ -43,6 +43,7 @@ int solarFetch(const char* lun_yyyymmdd, char* yyyymmdd_o) {
 	const int _BAD_INPUT = -1;
 	SolarDate _s_date(lun_yyyymmdd);
 	auto _sd_str = _s_date.datesPowerS();
-	return (_sd_str.has_value()) ? string2CharStar(*_sd_str, yyyymmdd_o) : _BAD_INPUT;
+	// optional: _sd_str equivalent to _sd_str.has_value() inside if
+	return (_sd_str) ? string2CharStar(*_sd_str, yyyymmdd_o) : _BAD_INPUT;
 }
 
